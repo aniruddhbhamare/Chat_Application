@@ -20,6 +20,21 @@ console.log('New User is Connected!');
 //     text:"hello client"
 // });
 //createMessage Listner
+
+socket.emit('newMessage',{
+    from:'admin',
+    text:'welcome to the chat app',
+    createdAt:new Date().getTime()
+});
+
+socket.broadcast.emit('newMessage',{
+    from:'admin',
+    text:'new user join',
+    createdAt:new Date().getTime()
+
+});
+
+
 socket.on('createMessage',function(msg){
     console.log("incoming createdMessage from client",msg);
     io.emit('newMessage',{
@@ -27,6 +42,12 @@ socket.on('createMessage',function(msg){
         createdAt:new Date().getTime(),
         text:msg.text
     });
+   //-------------------------- brodcastMessage
+    // socket.broadcast.emit('newMessage',{
+    //     from:msg.from,
+    //     text:msg.text,
+    //     createdAt:msg.createdAt
+    // });
 });
 
  socket.on('disconnect',()=>{
