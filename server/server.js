@@ -3,6 +3,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 const http = require('http');
 
+const {generateMessage} = require('./utils/message');
 var publicPath = path.join(__dirname + '/../public');
 var port = process.env.PORT || 3000;
 
@@ -21,27 +22,33 @@ console.log('New User is Connected!');
 // });
 //createMessage Listner
 
-socket.emit('newMessage',{
-    from:'admin',
-    text:'welcome to the chat app',
-    createdAt:new Date().getTime()
-});
+socket.emit('newMessage',
+// {   from:'admin',
+//     text:'welcome to the chat app',
+//     createdAt:new Date().getTime()
+// }
+generateMessage('Admin','Welcome To The Chat App')
+);
 
-socket.broadcast.emit('newMessage',{
-    from:'admin',
-    text:'new user join',
-    createdAt:new Date().getTime()
+socket.broadcast.emit('newMessage',generateMessage('Admin','New User Join Chat')
+// {
+//     from:'admin',
+//     text:'new user join',
+//     createdAt:new Date().getTime()
 
-});
+// }
+);
 
 
 socket.on('createMessage',function(msg){
     console.log("incoming createdMessage from client",msg);
-    io.emit('newMessage',{
-        from:msg.from,
-        createdAt:new Date().getTime(),
-        text:msg.text
-    });
+    io.emit('newMessage',generateMessage(msg.from,msg.txt)
+    //     {
+    //     from:msg.from,
+    //     createdAt:new Date().getTime(),
+    //     text:msg.text
+    // }
+);
    //-------------------------- brodcastMessage
     // socket.broadcast.emit('newMessage',{
     //     from:msg.from,
