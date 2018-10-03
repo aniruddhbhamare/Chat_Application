@@ -27,28 +27,14 @@ socket.emit('newMessage',
 //     text:'welcome to the chat app',
 //     createdAt:new Date().getTime()
 // }
-generateMessage('Admin','Welcome To The Chat App')
-);
+generateMessage('Admin','Welcome To The Chat App'));
 
-socket.broadcast.emit('newMessage',generateMessage('Admin','New User Join Chat')
-// {
-//     from:'admin',
-//     text:'new user join',
-//     createdAt:new Date().getTime()
+socket.broadcast.emit('newMessage',generateMessage('Admin','New User Join Chat'));
 
-// }
-);
-
-
-socket.on('createMessage',function(msg){
+socket.on('createMessage',(msg,callback)=>{
     console.log("incoming createdMessage from client",msg);
-    io.emit('newMessage',generateMessage(msg.from,msg.txt)
-    //     {
-    //     from:msg.from,
-    //     createdAt:new Date().getTime(),
-    //     text:msg.text
-    // }
-);
+    io.emit('newMessage',generateMessage(msg.from,msg.text));
+    callback("This is from the server");
    //-------------------------- brodcastMessage
     // socket.broadcast.emit('newMessage',{
     //     from:msg.from,
@@ -60,8 +46,6 @@ socket.on('createMessage',function(msg){
  socket.on('disconnect',()=>{
      console.log('User was disconnected');
  });
- 
-
 });
 
 
