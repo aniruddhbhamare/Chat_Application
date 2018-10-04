@@ -34,7 +34,7 @@ socket.broadcast.emit('newMessage',generateMessage('Admin','New User Join Chat')
 socket.on('createMessage',(msg,callback)=>{
     console.log("incoming createdMessage from client",msg);
     io.emit('newMessage',generateMessage(msg.from,msg.text));
-    callback("This is from the server");
+    callback();
    //-------------------------- brodcastMessage
     // socket.broadcast.emit('newMessage',{
     //     from:msg.from,
