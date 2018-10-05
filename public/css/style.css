@@ -98,6 +98,7 @@
     display: flex;
   }
   
+  
   .chat__sidebar {
     overflow-y: scroll;
     width: 260px;
@@ -185,6 +186,7 @@
   .message__title span {
     color: #999;
   }
+  
   
   @media (max-width: 600px) {
     * {
