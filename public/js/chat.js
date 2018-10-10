@@ -3,29 +3,29 @@ var socket = io();
 function scrollToBottom (){
     //selector
     var messages = jQuery("#messages");
-    console.log(messages);
+   // console.log(messages);
 
     var newMessage = messages.children('li:last-child');
-    console.log("newMessage",newMessage);
+   // console.log("newMessage",newMessage);
     
     //heights
     var clientHeight = messages.prop('clientHeight');
-    console.log("Clientheight:",clientHeight);
+    //console.log("Clientheight:",clientHeight);
 
     var scrollTop = messages.prop('scrollTop');
-    console.log("scrollTop",scrollTop);
+    //console.log("scrollTop",scrollTop);
 
     var scrollHeight = messages.prop('scrollHeight');
-    console.log("scrollHeight",scrollHeight);
+    //console.log("scrollHeight",scrollHeight);
 
     var newMessageHeight = newMessage.innerHeight();
-    console.log("newMessageHeight",newMessageHeight);
+    //console.log("newMessageHeight",newMessageHeight);
 
     var lastMessageHeight = newMessage.prev().innerHeight();
-    console.log("lastMessageHeight",lastMessageHeight);
+    //console.log("lastMessageHeight",lastMessageHeight);
 
     if(clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight){
-        console.log('should be scroll');
+        //console.log('should be scroll');
         messages.scrollTop(scrollHeight);
     }
 }
@@ -97,7 +97,7 @@ jQuery('#message-form').on('submit',function(e){
     e.preventDefault();
      
     socket.emit('createMessage',{
-        from:'User',
+        // from:'User',
         text:jQuery('[name=message]').val()
     },function(){
         jQuery('[name=message]').val('')

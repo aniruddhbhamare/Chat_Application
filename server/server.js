@@ -49,7 +49,11 @@ socket.on('join',(params,callback)=>{
 
 socket.on('createMessage',(msg,callback)=>{
     console.log("incoming createdMessage from client",msg);
-    io.emit('newMessage',generateMessage(msg.from,msg.text));
+    var user = users.getUser(socket.id);
+    if(user && isRealString(msg.text)){
+        io.to(user.room).emit('newMessage',generateMessage(user.name,msg.text));    
+    }
+
     callback();
    //-------------------------- brodcastMessage
     // socket.broadcast.emit('newMessage',{
@@ -60,7 +64,11 @@ socket.on('createMessage',(msg,callback)=>{
 });
 //location listner
 socket.on('createLocationMessage',(location)=>{
-    io.emit('newLocationMessage',generateLocationMessage('Admin',location.latitude,location.longitude));
+    var user = users.getUser(socket.id);
+    if(user){
+        console.log(user.name);
+        io.to(user.room).emit('newLocationMessage',generateLocationMessage(user.name,location.latitude,location.longitude));
+    }
 });
 
 
